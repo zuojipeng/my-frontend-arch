@@ -22,6 +22,7 @@ const FaucetPage = lazy(() => import('../pages/faucet'));
 const ProfilePage = lazy(() => import('../pages/profile'));
 const StakingPage = lazy(() => import('../pages/staking'));
 const TreasuryPage = lazy(() => import('../pages/treasury'));
+const ApiTestPage = lazy(() => import('../pages/ApiTest'));
 
 // 路由配置
 const routes: RouteObject[] = [
@@ -52,6 +53,10 @@ const routes: RouteObject[] = [
 			{
 				path: 'treasury',
 				element: _lazyLoad(TreasuryPage),
+			},
+			{
+				path: 'api-test',
+				element: _lazyLoad(ApiTestPage),
 			},
 		],
 	},
