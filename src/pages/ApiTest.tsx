@@ -7,7 +7,7 @@ import axios from 'axios';
  */
 
 // API 配置
-const API_BASE_URL = 'http://3.16.11.151:3000';
+const API_BASE_URL = 'https://pwhkfs7779.execute-api.us-east-1.amazonaws.com/prod';
 // const API_BASE_URL = 'http://localhost:3000';
 
 // 类型定义
