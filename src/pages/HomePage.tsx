@@ -142,102 +142,37 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-8">
+      {/* 网络检查提示：放在内容区域上方，避免形成第二个导航条 */}
+      {isConnected && !isCorrectNetwork && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+          <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+            <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">web3大学课堂</h1>
-                <p className="text-sm text-gray-500 mt-1">
-                  {IS_LOCAL_CHAIN ? '🏠 Hardhat 本地网络' : '🌐 Sepolia 测试网'}
+                <p className="text-sm font-medium text-yellow-800">⚠️ 网络不匹配</p>
+                <p className="text-xs text-yellow-600 mt-1">
+                  请切换到 {IS_LOCAL_CHAIN ? 'Hardhat Local (31337)' : 'Sepolia (11155111)'} 网络
                 </p>
               </div>
-
-              {/* 导航链接 */}
-              <nav className="hidden md:flex items-center space-x-4">
-                <Link to="/" className="text-gray-700 hover:text-blue-600 px-3 py-2 font-medium">
-                  课程
-                </Link>
-                <Link to="/faucet" className="text-gray-700 hover:text-blue-600 px-3 py-2 font-medium">
-                  水龙头
-                </Link>
-                <Link to="/staking" className="text-gray-700 hover:text-blue-600 px-3 py-2 font-medium">
-                  质押
-                </Link>
-                <Link to="/treasury" className="text-gray-700 hover:text-blue-600 px-3 py-2 font-medium">
-                  理财
-                </Link>
-                <Link to="/profile" className="text-gray-700 hover:text-blue-600 px-3 py-2 font-medium">
-                  个人中心
-                </Link>
-              </nav>
-            </div>
-
-            {/* 钱包连接状态 */}
-            <div className="flex items-center gap-4">
-              {isConnected && address ? (
-                <>
-                  <div className="text-right">
-                    <p className="text-sm font-medium text-gray-700">
-                      {address.slice(0, 6)}...{address.slice(-4)}
-                    </p>
-                    <p className="text-xs text-gray-500">
-                      YD: {balanceDisplay}
-                    </p>
-                  </div>
+              <div className="flex gap-2">
+                {IS_LOCAL_CHAIN && (
                   <button
-                    onClick={() => disconnect()}
-                    className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
-                  >
-                    断开连接
-                  </button>
-                </>
-              ) : (
-                <button
-                  onClick={() => connect({ connector: injectedConnector })}
-                  disabled={isConnecting}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
-                >
-                  {isConnecting ? '连接中...' : '连接钱包'}
-                </button>
-              )}
-            </div>
-          </div>
-
-          {/* 网络检查 */}
-          {isConnected && !isCorrectNetwork && (
-            <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-yellow-800">
-                    ⚠️ 网络不匹配
-                  </p>
-                  <p className="text-xs text-yellow-600 mt-1">
-                    请切换到 {IS_LOCAL_CHAIN ? 'Hardhat Local (31337)' : 'Sepolia (11155111)'} 网络
-                  </p>
-                </div>
-                <div className="flex gap-2">
-                  {IS_LOCAL_CHAIN && (
-                    <button
-                      onClick={addHardhatNetwork}
-                      className="px-3 py-1 text-xs bg-yellow-600 text-white rounded hover:bg-yellow-700"
-                    >
-                      添加网络
-                    </button>
-                  )}
-                  <button
-                    onClick={handleSwitchNetwork}
+                    onClick={addHardhatNetwork}
                     className="px-3 py-1 text-xs bg-yellow-600 text-white rounded hover:bg-yellow-700"
                   >
-                    切换网络
+                    添加网络
                   </button>
-                </div>
+                )}
+                <button
+                  onClick={handleSwitchNetwork}
+                  className="px-3 py-1 text-xs bg-yellow-600 text-white rounded hover:bg-yellow-700"
+                >
+                  切换网络
+                </button>
               </div>
             </div>
-          )}
+          </div>
         </div>
-      </header>
+      )}
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

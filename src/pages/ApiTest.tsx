@@ -241,13 +241,17 @@ export default function ApiTest(): React.ReactElement {
         {/* 标题 */}
         <div className="text-center mb-8">
           <h1 className="text-5xl font-bold text-white mb-4">🧪 API 接口测试</h1>
-          <p className="text-gray-300">
-            测试 NestJS 后端服务
-          </p>
-          <div className="mt-4 bg-gray-800 rounded-lg p-4 inline-block">
-            <p className="text-sm text-gray-400">API 地址</p>
-            <p className="text-white font-mono text-sm">{API_BASE_URL}</p>
-          </div>
+          <p className="text-gray-300">测试 NestJS 后端服务</p>
+
+          {/* 仅在开发环境显示 API 地址，线上隐藏 */}
+          {process.env.NODE_ENV === "development" && (
+            <div className="mt-4 bg-gray-800 rounded-lg p-4 inline-block">
+              <p className="text-sm text-gray-400">API 地址</p>
+              <p className="text-white font-mono text-sm break-all">
+                {API_BASE_URL}
+              </p>
+            </div>
+          )}
         </div>
 
         {/* 标签页切换 */}
